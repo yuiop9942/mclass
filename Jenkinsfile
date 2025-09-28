@@ -70,14 +70,14 @@ pipeline
                     // # 이전에 실행 중인 컨테이너 삭제 (없으면 무시)
                     // # 현재 디렉토리에서 Docker 이미지 빌드
                     // # 새 컨테이너 실행
-                    sh "
+                    sh """
                     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
                         cd ${REMOTE_DIR} || exit 1 ;
                         docker rm -f ${CONTAINER_NAME} || true ;
                         docker build -t ${DOCKER_IMAGE} . ;
                         docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${DOCKER_IMAGE}
                         ENDSSH
-                    "
+                    """
                 }
             }
         }
