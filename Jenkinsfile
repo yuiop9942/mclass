@@ -50,7 +50,7 @@ pipeline
         {
             steps
             {   // jenkins > spr svr로 ssh 접근을 위한 ssh agent 사용
-                sshagent (credentials: [environment.SSH_CREDENTIALS_ID])
+                sshagent (credentials: [env.SSH_CREDENTIALS_ID])
                 {   // 배포 디렉토리 생성 (없으면 새로 생성)
                     sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} \"mkdir -p ${REMOTE_DIR}\""
                     // JAR 파일과 Dockerfile을 원격 서버에 복사
@@ -62,7 +62,7 @@ pipeline
         {
             steps
             {
-                sshagent (credentials: [environment.SSH_CREDENTIALS_ID])
+                sshagent (credentials: [env.SSH_CREDENTIALS_ID])
                 {
                     // 원격 서버에서 도커 컨테이너를 제거하고 새로 빌드 및 실행
                     sh """
